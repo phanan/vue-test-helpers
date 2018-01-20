@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import equal from 'deep-equal'
 import { Wrapper } from './fixtures'
 import { throwError } from './utils'
 
@@ -125,7 +125,7 @@ export default function () {
 
     if (arguments.length === 2) {
       return Object.keys(this.emitted()).includes(arguments[0]) &&
-        _.isEqual(this.emitted()[arguments[0]], [[arguments[1]]])
+        equal(this.emitted()[arguments[0]], [[arguments[1]]])
     }
   }
 }

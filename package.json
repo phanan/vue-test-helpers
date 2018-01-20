@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "yarn lint && mocha-webpack --webpack-config webpack.config.js --require test/setup.js test/**/*.spec.js",
-    "build": "BABEL_ENV=production && babel src/index.js -o dist/vue-test-helpers.min.js"
+    "build": "NODE_ENV=production && BABEL_ENV=production && webpack"
   },
   "keywords": [
     "vue",
@@ -38,11 +38,13 @@
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
     "babel-minify": "^0.2.0",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-minify": "^0.2.0",
     "chai": "^4.1.2",
     "css-loader": "^0.28.8",
+    "deep-equal": "^1.0.1",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
