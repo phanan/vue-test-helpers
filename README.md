@@ -43,8 +43,8 @@ This will do two things:
 > Note: `hasClass`, `hasAttribute`, and `hasProp` are still available in `vue-test-utils`, but marked as deprecated and will be removed in 1.0.
 * `.hasEmitted(name[, value])`: assert that an event `name` has been emitted, optionally with a value `value`
 * `.id()`: gets the id of the contained element
-* `.click|dblclick|input|submit|focus|blur([options])`: triggers the click/dblclick/input/submit/focus/blur event on the contained element, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
-* `.click|dblclick|input|submit|focus|blur(selector[, options])`: finds the contained element by `selector` and, if found, triggers the click/dblclick/input/submit/focus/blur event on it, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
+* `.click|dblclick|input|submit|focus|blur|change([options])`: triggers the click/dblclick/input/submit/focus/blur/change event on the contained element, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
+* `.click|dblclick|input|submit|focus|blur|change(selector[, options])`: finds the contained element by `selector` and triggers the click/dblclick/input/submit/focus/blur/change event on it, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
 * `.setValue(value)`: sets the value of the contained (input) element. This method returns the `Wrapper`, which is useful for chaining e.g. `Wrapper.setValue('foo').input()`.
 * `.getValue()`: gets the value of the contained (input) element
 * `.value`: a proxy for the value of the contained (input) element. This means you can do something like `Wrapper.value = 'foo'` and `expect(Wrapper.value).toEqual('foo')`.

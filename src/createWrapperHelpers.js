@@ -80,7 +80,7 @@ export default function () {
   /**
    * Proxy the most common event triggers.
    */
-  ;['click', 'dblclick', 'submit', 'input', 'focus', 'blur'].forEach(eventName => {
+  ;['click', 'dblclick', 'submit', 'input', 'focus', 'blur', 'change'].forEach(eventName => {
     proto[eventName] = function () {
       if (arguments.length === 0) {
         this.trigger(eventName)
