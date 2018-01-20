@@ -33,21 +33,71 @@ This will do two things:
 
 > These helpers are available on `Wrapper` instances only, since I'm not a fan of `WrapperArray` which is just a very thin wrapper around an array of `Wrapper`'s. If you are dealing with a `WrapperArray`, just iterate through its `.wrappers` collection and run the helpers on each item.
 
-* `.has(selector)`: alias for [`.contains(selector)`](https://vue-test-utils.vuejs.org/en/api/wrapper/contains.html)
-* `.hasAll|containsAll(...selectors)`: asserts that the wrapper has all provided selectors
-* `.hasAny|containsAny(...selectors)`: asserts that the wrapper has any of the provided selectors
-* `.hasNone|containsNone(...selectors)`: asserts that the wrapper has none of the provided selectors
-* `.hasClass|hasClasses(...classes)`: asserts that the wrapper has the CSS class(es).
-* `.hasAttribute(name, value)`: asserts that the wrapper has an attribute `name` with the value `value`
-* `.hasProp(name, value)`: asserts that the wrapper has a prop `name` with the value `value`
-> Note: `hasClass`, `hasAttribute`, and `hasProp` are still available in `vue-test-utils`, but marked as deprecated and will be removed in 1.0.
-* `.hasEmitted(name[, value])`: assert that an event `name` has been emitted, optionally with a value `value`
-* `.id()`: gets the id of the contained element
-* `.click|dblclick|input|submit|focus|blur|change([options])`: triggers the click/dblclick/input/submit/focus/blur/change event on the contained element, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
-* `.click|dblclick|input|submit|focus|blur|change(selector[, options])`: finds the contained element by `selector` and triggers the click/dblclick/input/submit/focus/blur/change event on it, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object
-* `.setValue(value)`: sets the value of the contained (input) element. This method returns the `Wrapper`, which is useful for chaining e.g. `Wrapper.setValue('foo').input()`.
-* `.getValue()`: gets the value of the contained (input) element
-* `.value`: a proxy for the value of the contained (input) element. This means you can do something like `Wrapper.value = 'foo'` and `expect(Wrapper.value).toEqual('foo')`.
+* **`.has(selector)`**: alias for [`.contains(selector)`](https://vue-test-utils.vuejs.org/en/api/wrapper/contains.html)
+```js
+wrapper.has('p').should.be.true
+wrapper.has('#foo').should.be.true
+wrapper.has(childComponent).should.be.false
+```
+* **`.hasAll|containsAll(...selectors)`**: asserts that the wrapper has all provided selectors
+```js
+wrapper.hasAll('p', '#foo', childComponent).should.be.false
+```
+* **`.hasAny|containsAny(...selectors)`**: asserts that the wrapper has any of the provided selectors
+```js
+wrapper.hasAny('p', '#foo', childComponent).should.be.true
+```
+* **`.hasNone|containsNone(...selectors)`**: asserts that the wrapper has none of the provided selectors
+```js
+wrapper.hasNone('p', '#foo', childComponent).should.be.false
+```
+* **`.hasClass|hasClasses(...classes)`**: asserts that the wrapper has the CSS class(es).
+```js
+wrapper.find('.foo').hasClass('foo').should.be.true
+wrapper.find('.foo.bar').hasClass('foo', 'bar').should.be.true
+```
+* **`.hasAttribute(name, value)`**: asserts that the wrapper has an attribute `name` with the value `value`
+```js
+wrapper.find('[foo="bar"]').hasAttribute('foo', 'bar').should.be.true
+```
+* **`.hasProp(name, value)`**: asserts that the wrapper has a prop `name` with the value `value`
+```js
+wrapper.hasProp('foo', 'bar').should.be.true
+```
+> Note: `hasClass`, `hasAttribute`, and `hasProp` are actually available in `vue-test-utils`, but marked as deprecated and will be removed in 1.0.
+* **`.hasEmitted(name[, value])`**: assert that an event `name` has been emitted, optionally with a value `value`
+```js
+wrapper.vm.$emit('foo', 'bar')
+wrapper.hasEmitted('foo').should.be.true
+wrapper.hasEmitted('foo', 'bar').should.be.true
+```
+* **`.id()`**: gets the id of the contained element
+```js
+wrapper.find('#foo').id().should.equal('foo')
+```
+* **`.click|dblclick|input|submit|focus|blur|change([options])`**: triggers the click/dblclick/input/submit/focus/blur/change event on the contained element, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object. These methods return the wrapper instance, useful for chaining.
+```js
+wrapper.click().hasEmitted('clicked').should.be.true
+wrapper.click({ button: 1 }).hasEmitted('rightClicked').should.be.true
+```
+* **`.click|dblclick|input|submit|focus|blur|change(selector[, options])`**: finds the contained element by `selector` and triggers the click/dblclick/input/submit/focus/blur/change event on it, optionally with an [`options`](https://vue-test-utils.vuejs.org/en/guides/dom-events.html#options) object. These methods return the wrapper instance, useful for chaining.
+```js
+wrapper.click('button').hasEmitted('buttonClicked').should.be.true
+wrapper.click('button', { ctrlKey: true }).hasEmitted('buttonCtrlClicked').should.be.true
+```
+* **`.setValue(value)`**: sets the value of the contained (input) element. This method returns the called instance, useful for chaining.
+```js
+wrapper.find('input').setValue('foo').change()
+```
+* **`.getValue()`**: gets the value of the contained (input) element
+```js
+wrapper.find('input').setValue('foo').getValue().should.equal('foo')
+```
+* **`.value`**: a proxy for the value of the contained (input) element
+```js
+wrapper.find('input').value = 'foo'
+wrapper.find('input').value.should.equal('foo')
+```
 
 ## License
 
