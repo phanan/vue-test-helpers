@@ -20,14 +20,14 @@ setupHelpers()
 
 This will do two things:
 
-1. Make `mount` and `shallow` available globally, so you don't need to manually `import { mount, shallow } from 'vue-test-utils'` at the beginning of every test file
+1. Make [`mount`](https://vue-test-utils.vuejs.org/en/api/mount.html) and [`shallow`](https://vue-test-utils.vuejs.org/en/api/shallow.html) available globally, so you don't need to manually `import { mount, shallow } from 'vue-test-utils'` at the beginning of every test file
 2. Add some helpers and syntactic sugars on top of `Wrapper` to create your test a better experience. See the next section for details.
 
 ## Available helpers
 
 > These helpers are available on `Wrapper` instances only, since I'm not a fan of `WrapperArray` which is just a very thin wrapper around an array of `Wrapper`'s. If you are dealing with a `WrapperArray`, just iterate through its `.wrappers` collection and run the helpers on each item.
 
-* `.has(selector)`: alias for `.contains(selector)`
+* `.has(selector)`: alias for [`.contains(selector)`](https://vue-test-utils.vuejs.org/en/api/wrapper/contains.html)
 * `.hasAll|containsAll(...selectors)`: asserts that the wrapper has all provided selectors
 * `.hasAny|containsAny(...selectors)`: asserts that the wrapper has any of the provided selectors
 * `.hasNone|containsNone(...selectors)`: asserts that the wrapper has none of the provided selectors
