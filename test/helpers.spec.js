@@ -4,7 +4,7 @@ import Contains from './components/Contains.vue'
 import Events from './components/Events.vue'
 import Inputs from './components/Inputs.vue'
 import Props from './components/Props.vue'
-import setupHelpers from '../src/index'
+import setupHelpers from '../src'
 
 describe('vue-test-helpers', () => {
   setupHelpers()

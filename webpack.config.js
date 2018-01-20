@@ -5,7 +5,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'vue-test-helpers.min.js'
+    filename: 'vue-test-helpers.min.js',
+    libraryTarget: 'commonjs-module'
   },
   module: {
     rules: [
