@@ -1,6 +1,6 @@
 import equal from 'deep-equal'
 import { Wrapper } from './fixtures'
-import { throwError } from './utils'
+import { throwError, isValidSelector } from './utils'
 
 export default function () {
   const proto = Wrapper.prototype
@@ -81,8 +81,24 @@ export default function () {
    * Proxy the most common event triggers.
    */
   ;['click', 'dblclick', 'submit', 'input'].forEach(eventName => {
-    proto[eventName] = function (...args) {
-      return this.trigger(eventName, ...args)
+    proto[eventName] = function () {
+      if (arguments.length === 0) {
+        return this.trigger(eventName)
+      }
+
+      if (!isValidSelector(arguments[0])) {
+        // the first argument must be an options object
+        if (typeof (arguments[0]) !== 'object') {
+          throwError(`first argument of ${eventName}() must be a valid selector or an options object`)
+        }
+        return this.trigger(eventName, arguments[0])
+      }
+
+      // the first argument is a valid selector.
+      // we find() it and trigger the event, optionally with the options object.
+      return arguments.length === 1
+        ? this.find(arguments[0]).trigger(eventName)
+        : this.find(arguments[0]).trigger(eventName, arguments[1])
     }
   })
 

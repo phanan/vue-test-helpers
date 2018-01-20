@@ -62,7 +62,7 @@ describe('vue-test-helpers', () => {
     wrapper.find('#bar').id().should.equal('bar')
   })
 
-  it('triggers events', () => {
+  it('triggers events without an argument', () => {
     const wrapper = shallow(Events)
     const clickStub = sinon.stub(wrapper.vm, 'click')
     const dblclickStub = sinon.stub(wrapper.vm, 'dblclick')
@@ -77,6 +77,23 @@ describe('vue-test-helpers', () => {
     clickStub.restore()
     dblclickStub.restore()
     submitStub.restore()
+  })
+
+  it('triggers events with a selector', () => {
+    const wrapper = shallow(Events)
+    const clickStub = sinon.stub(wrapper.vm, 'click')
+    wrapper.click('.click')
+    clickStub.called.should.be.true
+    clickStub.restore()
+  })
+
+  it('triggers events with an options object', () => {
+    const wrapper = shallow(Events)
+    const inputWrapper = wrapper.find('.click')
+    const triggerStub = sinon.stub(inputWrapper, 'trigger')
+    inputWrapper.click({ shiftKey: true })
+    triggerStub.calledWith('click', { shiftKey: true }).should.be.true
+    triggerStub.restore()
   })
 
   it('gets/sets values', () => {
