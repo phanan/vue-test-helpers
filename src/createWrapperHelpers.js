@@ -81,8 +81,8 @@ export default function () {
    * Proxy the most common event triggers.
    */
   ;['click', 'dblclick', 'submit', 'input'].forEach(eventName => {
-    proto[eventName] = function (selector, ...args) {
-      return this.find(selector).trigger(eventName, ...args)
+    proto[eventName] = function (...args) {
+      return this.trigger(eventName, ...args)
     }
   })
 
@@ -117,13 +117,8 @@ export default function () {
 
   /**
    * Assert that an event and optionally its value have been emitted.
-   * If called without an argument, return the default emitted() array.
    */
   proto.hasEmitted = function () {
-    if (arguments.length === 0) {
-      return this.emitted()
-    }
-
     if (arguments.length === 1) {
       return Object.keys(this.emitted()).includes(arguments[0])
     }

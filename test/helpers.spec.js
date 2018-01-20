@@ -67,9 +67,9 @@ describe('vue-test-helpers', () => {
     const clickStub = sinon.stub(wrapper.vm, 'click')
     const dblclickStub = sinon.stub(wrapper.vm, 'dblclick')
     const submitStub = sinon.stub(wrapper.vm, 'submit')
-    wrapper.click('.click')
-    wrapper.dblclick('.dblclick')
-    wrapper.submit('form')
+    wrapper.find('.click').click()
+    wrapper.find('.dblclick').dblclick()
+    wrapper.find('form').submit()
     clickStub.called.should.be.true
     dblclickStub.called.should.be.true
     submitStub.calledWith('foo').should.be.true
@@ -102,8 +102,8 @@ describe('vue-test-helpers', () => {
 
   it('hasEmitted', () => {
     const wrapper = shallow(Events)
-    wrapper.click('.click')
-    wrapper.dblclick('.dblclick')
+    wrapper.find('.click').click()
+    wrapper.find('.dblclick').dblclick()
     wrapper.hasEmitted('clicked').should.be.true
     wrapper.hasEmitted('clicked', 10).should.be.true
     wrapper.hasEmitted('dblclicked', [41, 42]).should.be.true
