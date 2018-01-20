@@ -144,8 +144,17 @@ export default function () {
     }
 
     if (arguments.length === 2) {
-      return Object.keys(this.emitted()).includes(arguments[0]) &&
-        equal(this.emitted()[arguments[0]], [[arguments[1]]])
+      if (!Object.keys(this.emitted()).includes(arguments[0])) {
+        return false;
+      }
+
+      for (let emittedValue of this.emitted()[arguments[0]]) {
+        if (equal([arguments[1]], emittedValue)) {
+          return true
+        }
+      }
+
+      return false
     }
   }
 }
