@@ -83,7 +83,8 @@ export default function () {
   ;['click', 'dblclick', 'submit', 'input', 'focus', 'blur'].forEach(eventName => {
     proto[eventName] = function () {
       if (arguments.length === 0) {
-        return this.trigger(eventName)
+        this.trigger(eventName)
+        return this
       }
 
       if (!isValidSelector(arguments[0])) {
@@ -91,14 +92,17 @@ export default function () {
         if (typeof (arguments[0]) !== 'object') {
           throwError(`first argument of ${eventName}() must be a valid selector or an options object`)
         }
-        return this.trigger(eventName, arguments[0])
+        this.trigger(eventName, arguments[0])
+        return this
       }
 
       // the first argument is a valid selector.
       // we find() it and trigger the event, optionally with the options object.
-      return arguments.length === 1
+      arguments.length === 1
         ? this.find(arguments[0]).trigger(eventName)
         : this.find(arguments[0]).trigger(eventName, arguments[1])
+
+      return this
     }
   })
 
