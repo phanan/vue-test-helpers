@@ -145,7 +145,7 @@ export default function () {
 
     if (arguments.length === 2) {
       if (!Object.keys(this.emitted()).includes(arguments[0])) {
-        return false;
+        return false
       }
 
       for (let emittedValue of this.emitted()[arguments[0]]) {
