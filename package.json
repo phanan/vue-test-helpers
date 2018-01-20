@@ -1,6 +1,6 @@
 {
   "name": "vue-test-helpers",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Helpers for vue-test-utils",
   "repository": "phanan/vue-test-helpers",
   "main": "dist/vue-test-helpers.min.js",
