@@ -65,7 +65,7 @@ wrapper.find('[foo="bar"]').hasAttribute('foo', 'bar').should.be.true
 wrapper.hasProp('foo', 'bar').should.be.true
 ```
 > Note: `hasClass`, `hasAttribute`, and `hasProp` are actually available in `vue-test-utils`, but marked as deprecated and will be removed in 1.0.
-* **`.hasEmitted(name[, value])`**: assert that an event `name` has been emitted, optionally with a value `value`
+* **`.hasEmitted(name[, value])`**: asserts that an event `name` has been emitted, optionally with a value `value`
 ```js
 wrapper.vm.$emit('foo', 'bar')
 wrapper.hasEmitted('foo').should.be.true
