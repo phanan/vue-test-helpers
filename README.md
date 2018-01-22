@@ -26,7 +26,7 @@ setupHelpers()
 
 This will do two things:
 
-1. Make [`mount`](https://vue-test-utils.vuejs.org/en/api/mount.html) and [`shallow`](https://vue-test-utils.vuejs.org/en/api/shallow.html) available globally, so you don't need to manually `import { mount, shallow } from 'vue-test-utils'` at the beginning of every test file
+1. By default, make [`mount`](https://vue-test-utils.vuejs.org/en/api/mount.html) and [`shallow`](https://vue-test-utils.vuejs.org/en/api/shallow.html) available globally, so you don't need to manually `import { mount, shallow } from 'vue-test-utils'` at the beginning of every test file. If this behavior is not what you want, just call `setupHelpers({ registerGlobals: false })` instead.
 2. Add some helpers and syntactic sugars on top of `Wrapper` to create your test a better experience. See the next section for details.
 
 ## Available helpers
