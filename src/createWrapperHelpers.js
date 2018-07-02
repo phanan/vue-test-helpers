@@ -49,8 +49,8 @@ export default function () {
    * Assert that the wrapper has the provided prop.
    */
   proto.hasProp = function (key, value) {
-    if (!this.isVueComponent) {
-      throwError('wrapper.hasProps must be called on a Vue instance')
+    if (!this.vm) {
+      throwError('wrapper.hasProp must be called on a Vue instance')
     }
     return this.props()[key] === value
   }

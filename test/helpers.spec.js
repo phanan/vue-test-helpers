@@ -1,4 +1,4 @@
-import { mount as originalMount, shallow as originalShallow } from '@vue/test-utils'
+import { mount as originalMount, shallowMount as originalShallow } from '@vue/test-utils'
 import Basic from './components/Basic.vue'
 import Contains from './components/Contains.vue'
 import Events from './components/Events.vue'
@@ -11,7 +11,7 @@ describe('vue-test-helpers', () => {
 
   it('registers mount and shallow globally', () => {
     mount.should.equal(originalMount)
-    shallow.should.equal(originalShallow)
+    shallowMount.should.equal(originalShallow)
   })
 
   it('has', () => {
@@ -20,50 +20,50 @@ describe('vue-test-helpers', () => {
   })
 
   it('hasAll', () => {
-    const wrapper = shallow(Contains)
+    const wrapper = shallowMount(Contains)
     wrapper.hasAll('.foo', '.bar').should.be.true
     wrapper.containsAll('.foo', '.baz').should.be.false
   })
 
   it('hasAny', () => {
-    const wrapper = shallow(Contains)
+    const wrapper = shallowMount(Contains)
     wrapper.hasAny('.foo', '.bar').should.be.true
     wrapper.containsAny('.foo', '.baz').should.be.true
     wrapper.hasAny('.baz', '.qux').should.be.false
   })
 
   it('hasNone', () => {
-    const wrapper = shallow(Contains)
+    const wrapper = shallowMount(Contains)
     wrapper.hasNone('.foo', '.bar').should.be.false
     wrapper.containsNone('.foo', '.baz').should.be.false
     wrapper.doesntHaveAny('.baz', '.qux').should.be.true
   })
 
   it('hasClass(es)', () => {
-    const wrapper = shallow(Basic)
+    const wrapper = shallowMount(Basic)
     wrapper.find('.foo').hasClass('foo').should.be.true
     wrapper.find('.foo').hasClasses('foo', 'fooo').should.be.true
   })
 
   it('hasAttribute', () => {
-    const wrapper = shallow(Basic)
+    const wrapper = shallowMount(Basic)
     wrapper.find('.disabled').hasAttribute('disabled', 'disabled').should.be.true
   })
 
   it('hasProp', () => {
-    const wrapper = shallow(Props, { propsData: {
+    const wrapper = mount(Props, { propsData: {
       foo: 'bar'
     }})
     wrapper.hasProp('foo', 'bar').should.be.true
   })
 
   it('id', () => {
-    const wrapper = shallow(Basic)
+    const wrapper = shallowMount(Basic)
     wrapper.find('#bar').id().should.equal('bar')
   })
 
   it('triggers events without an argument', () => {
-    const wrapper = shallow(Events)
+    const wrapper = shallowMount(Events)
     const clickStub = sinon.stub(wrapper.vm, 'click')
     const dblclickStub = sinon.stub(wrapper.vm, 'dblclick')
     const submitStub = sinon.stub(wrapper.vm, 'submit')
@@ -80,7 +80,7 @@ describe('vue-test-helpers', () => {
   })
 
   it('triggers events with a selector', () => {
-    const wrapper = shallow(Events)
+    const wrapper = shallowMount(Events)
     const clickStub = sinon.stub(wrapper.vm, 'click')
     wrapper.click('.click')
     clickStub.called.should.be.true
@@ -88,7 +88,7 @@ describe('vue-test-helpers', () => {
   })
 
   it('triggers events with an options object', () => {
-    const wrapper = shallow(Events)
+    const wrapper = shallowMount(Events)
     const inputWrapper = wrapper.find('.click')
     const triggerStub = sinon.stub(inputWrapper, 'trigger')
     inputWrapper.click({ shiftKey: true })
@@ -97,7 +97,7 @@ describe('vue-test-helpers', () => {
   })
 
   it('gets/sets values', () => {
-    const wrapper = shallow(Inputs)
+    const wrapper = shallowMount(Inputs)
     wrapper.find('.foo').value = 'Bar'
     wrapper.find('.foo').element.value.should.equal('Bar')
     wrapper.find('.foo').element.value = 'Baz'
@@ -105,20 +105,20 @@ describe('vue-test-helpers', () => {
   })
 
   it('setValue', () => {
-    const wrapper = shallow(Inputs)
+    const wrapper = shallowMount(Inputs)
     const input = wrapper.find('.foo')
     input.setValue('Foo').should.equal(input)
     wrapper.find('.foo').element.value.should.equal('Foo')
   })
 
   it('getValue', () => {
-    const wrapper = shallow(Inputs)
+    const wrapper = shallowMount(Inputs)
     wrapper.find('.foo').setValue('Foo')
     wrapper.find('.foo').element.value.should.equal('Foo')
   })
 
   it('hasEmitted', () => {
-    const wrapper = shallow(Events)
+    const wrapper = shallowMount(Events)
     wrapper.find('.click').click()
     wrapper.find('.dblclick').dblclick()
     wrapper.hasEmitted('clicked').should.be.true
