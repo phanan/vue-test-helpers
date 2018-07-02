@@ -13,25 +13,15 @@ export default function () {
   /**
    * Assert that the wrapper contains all provided selectors.
    */
-  proto.containsAll = proto.hasAll = function () {
-    for (let selector of arguments) {
-      if (!this.contains(selector)) {
-        return false
-      }
-    }
-    return true
+  proto.containsAll = proto.hasAll = function (...selectors) {
+    return selectors.every(selector => this.contains(selector))
   }
 
   /**
    * Assert that the wrapper contains any of the provided selectors.
    */
-  proto.containsAny = proto.hasAny = function () {
-    for (let selector of arguments) {
-      if (this.contains(selector)) {
-        return true
-      }
-    }
-    return false
+  proto.containsAny = proto.hasAny = function (...selectors) {
+    return selectors.some(selector => this.contains(selector))
   }
 
   /**
@@ -45,12 +35,7 @@ export default function () {
    * Assert that the wrapper's element has the provided class name(s).
    */
   proto.hasClass = proto.hasClasses = function (...names) {
-    for (let name of names) {
-      if (!this.classes().includes(name)) {
-        return false
-      }
-    }
-    return true
+    return names.every(name => this.classes().includes(name))
   }
 
   /**
